@@ -1,0 +1,19 @@
+.top-tabs {
+  ul {
+    display: flex;
+    line-height: 80px;
+    font-size: 28px;
+    color: #666666;
+    background: #fff;
+    li {
+      flex: 1;
+      text-align: center;
+      &:active {
+        border-bottom: 1px solid #16b13a;
+        a {
+          color: #16b13a;
+        }
+      }
+    }
+  }
+}

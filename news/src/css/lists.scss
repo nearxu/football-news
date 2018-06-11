@@ -1,0 +1,37 @@
+.news-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
+  position: relative;
+  .left {
+    flex: 2;
+    img {
+      display: block;
+      width: 180px;
+      height: 140px;
+    }
+  }
+  .right {
+    flex: 5;
+    text-align: left;
+  }
+  h3 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 20px;
+    color: #8a8787;
+  }
+
+  span {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: #8a8787;
+    font-size: 24px;
+  }
+}
