@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../css/tab.scss";
 export default class Tab extends PureComponent {
   render() {
@@ -7,17 +7,25 @@ export default class Tab extends PureComponent {
       <div className="top-tabs">
         <ul>
           <li>
-            <Link to="/new">资讯</Link>
+            <NavLink to="/new" activeClassName="selected">
+              资讯
+            </NavLink>
           </li>
           <li>
-            <Link to="/race">赛程</Link>
+            <NavLink to="/race" activeClassName="selected">
+              赛程
+            </NavLink>
           </li>
           <li>
-            <Link to="/video">视频</Link>
+            <NavLink to="/video" activeClassName="selected">
+              视频
+            </NavLink>
           </li>
-          <li>
-            <Link to="/data">数据</Link>
-          </li>
+          {/* <li>
+            <NavLink to="/data" activeClassName="selected">
+              数据
+            </NavLink>
+          </li> */}
         </ul>
       </div>
     );

@@ -56,7 +56,7 @@ export default {
   post(url, data) {
     return axios({
       method: "post",
-      baseURL: "http://localhost:6300",
+      baseURL: "/api",
       url,
       data: qs.stringify(data),
       timeout: 10000,
@@ -74,7 +74,7 @@ export default {
   get(url, params) {
     return axios({
       method: "get",
-      baseURL: "http://localhost:6300",
+      baseURL: "/api",
       url,
       params, // get 请求时带的参数
       timeout: 10000,

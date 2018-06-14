@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import "../css/lists.scss";
+import { Link } from "react-router-dom";
+
 export default class Index extends Component {
   render() {
     const { item } = this.props;
     return (
-      <div className="news-list">
+      <Link to={`/detail/${item.id}`} className="news-list">
         <div className="left">
           <img src={item.litpic} alt="" />
         </div>
@@ -13,7 +15,7 @@ export default class Index extends Component {
           <p>{item.description}</p>
         </div>
         <span>{item.comments_total} 评论</span>
-      </div>
+      </Link>
     );
   }
 }

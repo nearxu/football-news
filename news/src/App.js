@@ -7,6 +7,8 @@ import Race from "./pages/race";
 import Video from "./pages/video";
 import Data from "./pages/data";
 import Index from "./pages/index";
+import Detail from "./pages/detail";
+
 import "./static/flexble";
 class App extends Component {
   render() {
@@ -16,10 +18,12 @@ class App extends Component {
           <div>
             <Header />
             <Tab />
+            <Route exact path="/" component={Index} />
             <Route path="/new" component={Index} />
             <Route path="/race" component={Race} />
             <Route path="/video" component={Video} />
             <Route path="/data" component={Data} />
+            <Route path="/detail/:id" component={Detail} />
           </div>
         </BrowserRouter>
       </div>

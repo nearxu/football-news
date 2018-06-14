@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import http from "../util/http";
-import { formatDate } from "../util/util";
+import "../css/race.scss";
+import {
+  formatDate,
+  formatTimes,
+  getLocalDate,
+  getLocalHour
+} from "../util/util";
 export default class Race extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +17,14 @@ export default class Race extends Component {
   componentDidMount() {
     this.getMatchs();
   }
+  getFilterData(key) {
+    if (!this.obj[key]) {
+      this.obj[key] = {
+        title: getLocalDate(key),
+        item: []
+      };
+    }
+  }
   getMatchs() {
     let currentTime = formatDate(new Date(), 1) + " 16:00:00";
     http
@@ -18,9 +32,21 @@ export default class Race extends Component {
         start: currentTime
       })
       .then(res => {
+        this.obj = {};
         let resData = res.data.list ? res.data.list : [];
-        let { races } = this.state;
-        this.setState({ races: races.concat(resData) });
+        resData = resData.slice(3, resData.length);
+        resData = resData.reduce((pre, cur) => {
+          const lists = pre.concat();
+          const curdate = cur.date_utc;
+          const exiteDateIndex = lists.findIndex(l => l.date_utc == curdate);
+          if (exiteDateIndex < 0) {
+            lists.push({ date: curdate, list: [cur] });
+          } else {
+            lists[exiteDateIndex].list.push(cur);
+          }
+          return lists;
+        }, []);
+        this.setState({ races: this.state.races.concat(resData) });
       })
       .catch(err => {
         console.log(err);
@@ -31,14 +57,13 @@ export default class Race extends Component {
     if (!races.length) return <div />;
     return (
       <div className="race">
-        <h2>最火比赛</h2>
         {races.map((itemAll, index) => {
           return (
-            <div className="time-panel">
-              <h3>{itemAll.title}</h3>
-              {itemAll.item.map((item, i) => {
+            <div className="time-panel" key={index}>
+              <h3>{itemAll.date}</h3>
+              {itemAll.list.map((item, i) => {
                 return (
-                  <div className="row">
+                  <div className="row" key={i}>
                     <div className="team">
                       <div>
                         <img src={item.team_A_logo} alt="球队logo" />
@@ -51,16 +76,16 @@ export default class Race extends Component {
                         <span>{item.competition_name}</span>{" "}
                         {item.gameweek ? <span>第{item.gameweek}轮</span> : ""}
                       </p>
-                      <p v-text="item.TVList" />
+                      <p>{item.TVList}</p>
                       <h4>
                         {item.fs_A} - {item.fs_B}{" "}
                         {item.fs_B ? item.fs_B : item.fs_A}
                       </h4>
-                      <h4> {"notStart"}</h4>
+                      {/* <h4> {"notStart"}</h4> */}
                     </div>
                     <div className="team">
                       <div>
-                        <img src="item.team_B_logo" alt="" />
+                        <img src={item.team_B_logo} alt="" />
                       </div>
                       <p>{item.team_B_name}</p>
                     </div>
