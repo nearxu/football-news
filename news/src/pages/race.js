@@ -34,11 +34,10 @@ export default class Race extends Component {
       .then(res => {
         this.obj = {};
         let resData = res.data.list ? res.data.list : [];
-        resData = resData.slice(3, resData.length);
         resData = resData.reduce((pre, cur) => {
           const lists = pre.concat();
           const curdate = cur.date_utc;
-          const exiteDateIndex = lists.findIndex(l => l.date_utc == curdate);
+          const exiteDateIndex = lists.findIndex(l => l.date === curdate);
           if (exiteDateIndex < 0) {
             lists.push({ date: curdate, list: [cur] });
           } else {
